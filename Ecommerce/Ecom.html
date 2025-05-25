@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEL RAY FASHION</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1445205170230-053b83016050');
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 1s ease;
+        }
+
+        .products {
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            background-color: #f9f9f9;
+        }
+
+        .product-card {
+            border: none;
+            padding: 1.5rem;
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .product-card h3 {
+            color: var(--primary-color);
+            margin: 1rem 0;
+        }
+
+        .product-card p {
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cart-count {
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>DEL RAY FASHION</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#cart">Cart <span class="cart-count">0</span></a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div>
+            <h2>Welcome to DEL RAY FASHION</h2>
+            <p>Discover the latest trends in fashion</p>
+        </div>
+    </section>
+
+    <section class="products" id="products">
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b" alt="Fashion Item 1">
+            <h3>Summer Collection</h3>
+            <p>$99.99</p>
+            <button onclick="addToCart('Summer Collection', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b" alt="Fashion Item 2">
+            <h3>Winter Collection</h3>
+            <p>$149.99</p>
+            <button onclick="addToCart('Winter Collection', 149.99)">Add to Cart</button>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d" alt="Fashion Item 3">
+            <h3>Spring Collection</h3>
+            <p>$129.99</p>
+            <button onclick="addToCart('Spring Collection', 129.99)">Add to Cart</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 DEL RAY FASHION. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let cartCount = 0;
+        const cartCountElement = document.querySelector('.cart-count');
+
+        function addToCart(productName, price) {
+            cartCount++;
+            cartCountElement.textContent = cartCount;
+            
+            // Create notification
+            const notification = document.createElement('div');
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.backgroundColor = 'var(--accent-color)';
+            notification.style.color = 'white';
+            notification.style.padding = '1rem';
+            notification.style.borderRadius = '5px';
+            notification.style.animation = 'fadeIn 0.5s ease';
+            notification.textContent = `${productName} added to cart!`;
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.5s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
+
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add scroll animation for product cards
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.product-card').forEach((card) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
